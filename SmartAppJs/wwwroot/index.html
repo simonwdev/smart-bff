@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>FHIR TASKS</title>
+    <link href="libs/bootstrap.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <div class="buttons">
+                <div class="not-logged-in hide">
+                    <a class="btn btn-primary" href="/smart-bff/launch?discriminator=dev&iss=https://wsl.wiredclone.com/fhir">Launch</a>
+                </div>
+                
+                <div class="logged-in hide">
+                    <a class="btn btn-primary" id="logoutLink" href="/smart-bff/logout">Logout</a>
+                    <button class="btn btn-secondary" id="logoutSmileLink">Logout SmileCDR</button>
+                    <button class="btn btn-info show_session">Session</button>
+                </div>
+
+                <button class="btn btn-info" id="api-test">Api</button>
+            </div>
+            <h1>FHIR TASKS</h1>
+            <div>
+                <span id="username-text">Logged in as: </span>
+                <span id="username"></span>
+            </div>
+        </header>
+
+
+        <div class="row">
+            <div class="col">
+                <h3>Add New</h3>
+            </div>
+            <div class="form-inline">
+                <label for="date">Task Date</label>
+                <input class="form-control" id="date" type="datetime" value="2021-03-01" />
+                <label for="name">Task Name</label>
+                <input class="form-control" id="name" autocomplete="on" value="Do something" />
+                <button class="form-control btn-success" id="createNewButton">Create</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-warning hide"><strong>Error: </strong><span id="errText"></span></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Note</th>
+                        <th>User</th>
+                    </tr>
+                </thead>
+                <tbody id="todos"></tbody>
+            </table>
+        </div>
+
+        <div id="sessionModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Session Details</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="sessionTitle">Name:</div>
+                        <div id="modalName" class="tokenWrap"></div>
+                        <div class="sessionTitle">Access Token:</div>
+                        <div id="modalAccessToken" class="tokenWrap"></div>
+                        <div class="sessionTitle">Identity Token:</div>
+                        <div id="modalIdToken" class="tokenWrap"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="apiModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">API</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="sessionTitle">Response:</div>
+                        <div id="apiValue" class="tokenWrap"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="https://unpkg.com/jwt-js-decode@1.9.0/dist/jwt-js-decode.pkg.min.js"></script>
+    <script src="libs/jquery-3.6.0.min.js"></script>
+    <script src="libs/bootstrap.bundle.min.js"></script>
+    <script src="libs/fhir-client.min.js"></script>
+    <script src="session.js"></script>
+    <script src="todo.js"></script>
+</body>
+</html>
