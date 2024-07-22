@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{D7
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAppJs", "SmartAppJs\SmartAppJs.csproj", "{5C8E1D5D-5376-4200-BBA5-B128A6562D57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAppJs", "samples\SmartAppJs\SmartAppJs.csproj", "{5C8E1D5D-5376-4200-BBA5-B128A6562D57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBff", "SmartBff\SmartBff.csproj", "{645A5B07-8057-4057-81BC-F4203E3CD36D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBff", "src\SmartBff\SmartBff.csproj", "{645A5B07-8057-4057-81BC-F4203E3CD36D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
