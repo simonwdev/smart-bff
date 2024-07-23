@@ -6,5 +6,8 @@
   <ItemGroup>
     <PackageVersion Include="IdentityModel" Version="7.0.0" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.7"/>
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.7"/>
+    <PackageVersion Include="DistributedLock.Core" Version="1.0.7"/>
   </ItemGroup>
 </Project>

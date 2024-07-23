@@ -13,6 +13,11 @@
     <ItemGroup>
         <PackageReference Include="IdentityModel"/>
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+        <PackageReference Include="DistributedLock.Core"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="SmartBff.EntityFrameworkCore" />
     </ItemGroup>
     
 </Project>

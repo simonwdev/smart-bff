@@ -50,7 +50,7 @@ public class Registration
     public bool Active { get; set; }
     public RegistrationOptions Options { get; set; }
     
-    public ClaimsIdentity CreateIdentityFromTokenResponse(TokenResponse tokenResponse)
+    public ClaimsIdentity CreateIdentityFromTokenResponse(TokenResponse tokenResponse, Guid sessionId)
     {
         ArgumentNullException.ThrowIfNull(tokenResponse);
         
@@ -70,6 +70,7 @@ public class Registration
             ? idToken.GetRequiredClaimValue(JwtClaimTypes.Name)
             : accessToken.GetRequiredClaimValue(JwtClaimTypes.Subject));
 
+        identity.AddClaim(Constants.CustomClaims.SessionId, sessionId.ToString("N"));
         identity.AddClaim(Constants.CustomClaims.RegistrationId, RegistrationId);
         identity.AddClaim(Constants.CustomClaims.AccessToken, tokenResponse.AccessToken);
         

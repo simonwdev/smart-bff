@@ -92,6 +92,7 @@ document.querySelector(".show_session").addEventListener("click", async () => {
             myModal.toggle();
 
         } else if (sessionResponse.status === 401) {
+            window.location = "/";
         }
 
     } catch (e) {

@@ -4,6 +4,7 @@ public static class Constants
 {
     public static class CustomClaims
     {
+        public const string SessionId = "sb_session_id";
         public const string RegistrationId = "sb_registration_id";
         public const string ReturnUrl = "sb_return_url";
         public const string LoginCallback = "sb_login_callback";
@@ -43,7 +44,9 @@ public static class Constants
     public static class AuthenticationProperties
     {
         public const string RegistrationId = "SmartBff.RegistrationId";
-        public const string RefreshTokenDuration = "SmartBff.RefreshTokenDuration";
+        public const string SessionSlidingDuration = "SmartBff.SessionSlidingDuration";
+        public const string SessionMaxDuration = "SmartBff.SessionMaxDuration";
+        public const string TicketCreatedOnTicks = "SmartBff.TicketCreatedOnTicks";
     }
     
     public static class AuthenticationSchemes

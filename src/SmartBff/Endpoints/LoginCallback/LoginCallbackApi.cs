@@ -118,12 +118,13 @@ public static class LoginCallbackApi
         var properties = new Dictionary<string, string?>
         {
             { Constants.AuthenticationProperties.RegistrationId, registration.RegistrationId },
-            { Constants.AuthenticationProperties.RefreshTokenDuration, registration.Options.RefreshTokenDuration.ToString() }
+            { Constants.AuthenticationProperties.SessionSlidingDuration, registration.Options.SessionSlidingDuration.ToString() },
+            { Constants.AuthenticationProperties.SessionMaxDuration, registration.Options.SessionMaxDuration.ToString() }
         };
 
         // Create the session cookie to store the access, id, & refresh token.
         await httpContext.SignInAsync(Constants.AuthenticationSchemes.Session, 
-            new ClaimsPrincipal(registration.CreateIdentityFromTokenResponse(tokenResponse)), 
+            new ClaimsPrincipal(registration.CreateIdentityFromTokenResponse(tokenResponse, Guid.NewGuid())), 
             new AuthenticationProperties(properties));
         
         // Delete the login cookie to avoid a replay attack.

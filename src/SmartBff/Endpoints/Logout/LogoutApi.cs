@@ -1,10 +1,7 @@
 ﻿using System.Net;
-using System.Threading.Channels;
 using IdentityModel;
-using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using SmartBff.Configuration;
 using SmartBff.Extensions;
 using SmartBff.ProblemDetails;
 
@@ -27,10 +24,11 @@ public static class LogoutApi
         var loginResult = await httpContext.AuthenticateAsync(Constants.AuthenticationSchemes.Session);
         if (loginResult is null or { Succeeded: false })
         {
-            services.Logger.NoCookie(Constants.AuthenticationSchemes.Login);
+            // If we can't find the session it means the client
+            // might have removed the cookie.
+            httpContext.Response.Redirect(returnUrl);
+            services.Logger.LogoutRequestSuccess(returnUrl);
             
-            await httpContext.SignOutAsync(Constants.AuthenticationSchemes.Session);
-            await httpContext.Response.WriteProblemAsync(HttpStatusCode.Unauthorized, "Invalid session session.");
             return;
         }
 

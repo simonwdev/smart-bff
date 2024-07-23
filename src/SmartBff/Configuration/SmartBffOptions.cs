@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.Configuration;
 using SmartBff.Extensions;
 
 namespace SmartBff.Configuration;
@@ -19,12 +17,7 @@ public class SmartBffOptions
     /// Defaults to 10 minutes.
     /// </summary>
     public TimeSpan LoginCookieDuration { get; set; } = TimeSpan.FromMinutes(10);
-    /// <summary>
-    /// Default session cookie duration.
-    /// Note that the registration options will take precendence over this value.
-    /// Defaults to 60 minutes.
-    /// </summary>
-    public TimeSpan SessionCookieDuration { get; set; } = TimeSpan.FromMinutes(60);
+    public TimeSpan SessionCleanupDuration { get; set; } = TimeSpan.FromMinutes(15);
     /// <summary>
     /// Percentage threshold for refreshing access tokens before their expiry
     /// to minimise clock-skew issues.

@@ -18,12 +18,12 @@ using SmartBff.Middleware.CookieEvents;
 
 namespace SmartBff.Configuration;
 
-public static class BffExtensions
+public static class SmartBffExtensions
 {
     /// <summary>
     /// Registers the SmartBff services.
     /// </summary>
-    public static void AddSmartBff(this IServiceCollection serviceCollection)
+    public static ISmartBffBuilder AddSmartBff(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddOptions<SmartBffOptions>()
             .BindConfiguration(SmartBffOptions.Key)
@@ -35,8 +35,7 @@ public static class BffExtensions
         serviceCollection.AddMemoryCache();
         
         serviceCollection.TryAddSingleton<ISmartConfigurationCache, SmartConfigurationCache>();
-        serviceCollection.TryAddSingleton<ITicketStore, DistributedCacheTicketStore>();
-        
+
         serviceCollection.TryAddTransient<ISmartConfigurationService, SmartConfigurationService>();
         serviceCollection.TryAddTransient<ISmartConfigurationValidator, SmartConfigurationValidator>();
         serviceCollection.TryAddTransient<SessionCookieAuthenticationEvents>();
@@ -44,7 +43,7 @@ public static class BffExtensions
         
         // Update the login cookie options.
         serviceCollection.AddOptions<CookieAuthenticationOptions>(Constants.AuthenticationSchemes.Login)
-            .PostConfigure<ITicketStore, IOptions<SmartBffOptions>>((cookieOptions, ticketStore, bffOptions) => {
+            .PostConfigure<ISmartBffTicketStore, IOptions<SmartBffOptions>>((cookieOptions, ticketStore, bffOptions) => {
                 cookieOptions.SessionStore = bffOptions.Value.UseServerSideCookieStore ? ticketStore : null;
                 cookieOptions.Cookie.MaxAge = bffOptions.Value.LoginCookieDuration;
                 cookieOptions.ExpireTimeSpan = bffOptions.Value.LoginCookieDuration;
@@ -52,13 +51,20 @@ public static class BffExtensions
         
         // Update the session cookie options.
         serviceCollection.AddOptions<CookieAuthenticationOptions>(Constants.AuthenticationSchemes.Session)
-            .PostConfigure<ITicketStore, IOptions<SmartBffOptions>>((cookieOptions, ticketStore, bffOptions) => {
+            .PostConfigure<ISmartBffTicketStore, IOptions<SmartBffOptions>>((cookieOptions, ticketStore, bffOptions) => {
                 cookieOptions.SessionStore = bffOptions.Value.UseServerSideCookieStore ? ticketStore : null;
-                cookieOptions.Cookie.MaxAge = bffOptions.Value.SessionCookieDuration;
-                cookieOptions.ExpireTimeSpan = bffOptions.Value.SessionCookieDuration;
             });
+        
+        return new SmartBffBuilder(serviceCollection);
     }
 
+    public static ISmartBffBuilder PersistSessionsToDistributedCache(this ISmartBffBuilder builder)
+    {
+        builder.Services.TryAddSingleton<ISmartBffTicketStore, DistributedCacheTicketStore>();
+
+        return builder;
+    }
+    
     /// <summary>
     /// Adds the SmartBff cookie authentication to AuthenticationBuilder.
     /// </summary>
@@ -75,8 +81,8 @@ public static class BffExtensions
                 o.Cookie.HttpOnly = true;
                 o.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 o.Cookie.IsEssential = true;
-                o.Cookie.MaxAge = TimeSpan.FromMinutes(10); // Updated in PostConfigure.
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(10); // Updated in PostConfigure. 
+                o.Cookie.MaxAge = null; // Updated in PostConfigure.
+                o.ExpireTimeSpan = default; // Updated in PostConfigure. 
                 o.SlidingExpiration = false;
                 o.EventsType = typeof(SinglePageCookieAuthenticationEvents);
             })
@@ -88,9 +94,9 @@ public static class BffExtensions
                 o.Cookie.HttpOnly = true;
                 o.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 o.Cookie.IsEssential = true;
-                o.Cookie.MaxAge = TimeSpan.FromMinutes(60); // Updated in PostConfigure.
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Updated in PostConfigure. 
-                o.SlidingExpiration = false;
+                o.Cookie.MaxAge = null; // Updated in SessionCookieAuthenticationEvents.
+                o.ExpireTimeSpan = default; // Updated in SessionCookieAuthenticationEvents. 
+                o.SlidingExpiration = true;
                 o.EventsType = typeof(SessionCookieAuthenticationEvents);
             });
 

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAppJs", "samples\Smart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBff", "src\SmartBff\SmartBff.csproj", "{645A5B07-8057-4057-81BC-F4203E3CD36D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBff.EntityFrameworkCore", "src\SmartBff.EntityFrameworkCore\SmartBff.EntityFrameworkCore.csproj", "{3C92BAE8-86FF-4AC1-BBB0-5014A0B0194A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +29,14 @@ Global
 		{645A5B07-8057-4057-81BC-F4203E3CD36D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{645A5B07-8057-4057-81BC-F4203E3CD36D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{645A5B07-8057-4057-81BC-F4203E3CD36D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C92BAE8-86FF-4AC1-BBB0-5014A0B0194A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C92BAE8-86FF-4AC1-BBB0-5014A0B0194A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C92BAE8-86FF-4AC1-BBB0-5014A0B0194A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C92BAE8-86FF-4AC1-BBB0-5014A0B0194A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5C8E1D5D-5376-4200-BBA5-B128A6562D57} = {DB82814B-2E82-44BF-BD2F-4867B5874461}
 		{645A5B07-8057-4057-81BC-F4203E3CD36D} = {CCD50CD9-6254-4D05-8BEA-F0EAB9C6ED64}
+		{3C92BAE8-86FF-4AC1-BBB0-5014A0B0194A} = {CCD50CD9-6254-4D05-8BEA-F0EAB9C6ED64}
 	EndGlobalSection
 EndGlobal

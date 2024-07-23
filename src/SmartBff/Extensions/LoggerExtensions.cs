@@ -141,4 +141,18 @@ internal static partial class LoggerExtensions
         this ILogger logger,
         string registrationId,
         string name);  
+    
+    [LoggerMessage(
+        Message = "Session '{name}' exceeded max duration.",
+        Level = LogLevel.Information)]
+    internal static partial void SessionMaxDurationExceeded(
+        this ILogger logger,
+        string name);      
+    
+    [LoggerMessage(
+        Message = "Session '{name}' has invalid state.",
+        Level = LogLevel.Error)]
+    internal static partial void SessionStateInvalid(
+        this ILogger logger,
+        string name);          
 }

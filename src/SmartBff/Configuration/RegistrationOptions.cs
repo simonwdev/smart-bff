@@ -7,7 +7,8 @@ public class RegistrationOptions
     public bool RequireHttps { get; set; } = true;
     public bool RequireIssuer { get; set; } = true;
     public bool ValidateEndpoints { get; set; } = true;
-    public TimeSpan RefreshTokenDuration { get; set; } = TimeSpan.FromMinutes(60);
+    public TimeSpan SessionSlidingDuration { get; set; } = TimeSpan.FromHours(1);
+    public TimeSpan SessionMaxDuration { get; set; } = TimeSpan.FromHours(2);
     
     public bool RevokeOnLogout { get; set; }
     

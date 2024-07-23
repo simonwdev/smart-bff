@@ -6,7 +6,6 @@ using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using SmartBff.Configuration;
 using SmartBff.Extensions;
 using SmartBff.ProblemDetails;
 
@@ -79,11 +78,11 @@ public class LaunchApi
             extra: customParameters);
 
         var loginIdentity = new ClaimsIdentity(Constants.AuthenticationSchemes.Login);
-        loginIdentity.AddClaim(new Claim(Constants.CustomClaims.RegistrationId, registration.RegistrationId));
-        loginIdentity.AddClaim(new Claim(Constants.CustomClaims.LoginCallback, registration.LoginCallbackUrl));
-        loginIdentity.AddClaim(new Claim(Constants.CustomClaims.ReturnUrl, returnUrl));
-        loginIdentity.AddClaim(new Claim(Constants.CustomClaims.PkceCodeVerifier, codeVerifier));
-        loginIdentity.AddClaim(new Claim(Constants.CustomClaims.State, stateNonce));
+        loginIdentity.AddClaim(Constants.CustomClaims.RegistrationId, registration.RegistrationId);
+        loginIdentity.AddClaim(Constants.CustomClaims.LoginCallback, registration.LoginCallbackUrl);
+        loginIdentity.AddClaim(Constants.CustomClaims.ReturnUrl, returnUrl);
+        loginIdentity.AddClaim(Constants.CustomClaims.PkceCodeVerifier, codeVerifier);
+        loginIdentity.AddClaim(Constants.CustomClaims.State, stateNonce);
 
         // Set the login cookie to store the details of the authorisation code flow.
         await httpContext.SignInAsync(Constants.AuthenticationSchemes.Login, new ClaimsPrincipal(loginIdentity));

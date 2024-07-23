@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.Distributed;
@@ -13,7 +12,7 @@ namespace SmartBff.Configuration;
 /// </summary>
 public class DistributedCacheTicketStore(
     IDistributedCache cache,
-    IDataProtectionProvider dataProtectionProvider) : ITicketStore
+    IDataProtectionProvider dataProtectionProvider) : ISmartBffTicketStore
 {
     private const string KeyPrefix = "CookieTicketStore-";
     
